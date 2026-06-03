@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bundle single-file release
+        run: ./scripts/bundle.sh
+
+      - name: Smoke test bundled harness
+        run: |
+          ./dist/harness.sh version
+          ./dist/harness.sh doctor || true
+          TMP="$(mktemp -d)"
+          cp dist/harness.sh "$TMP/harness.sh"
+          cd "$TMP"
+          ./harness.sh init
+          ./harness.sh wire
+          test -f .cursor/hooks.json
+          test -f .cursor/hooks/harness_hook.py
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/harness.sh
+            dist/install.sh
+          generate_release_notes: true

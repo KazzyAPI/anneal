@@ -1,0 +1,15 @@
+---
+description: Harness protocol is mandatory — retrieval and learning
+alwaysApply: true
+---
+
+# Harness (mandatory)
+
+This project uses `./harness.sh`. Cursor hooks auto-inject the session index and run `reflect` on stop.
+
+You MUST still:
+- Run `./harness.sh recall "<topic>"` before working on an unfamiliar area
+- Run `./harness.sh learn --title "..." --fix "..."` immediately when tests, lint, or review catch a mistake
+- Never re-derive lessons already stored in the harness
+
+Skipping harness commands is not allowed. They are workflow infrastructure, not optional suggestions.

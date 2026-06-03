@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      { "command": ".cursor/hooks/harness-session-start.sh", "timeout": 15 }
+    ],
+    "subagentStart": [
+      { "command": ".cursor/hooks/harness-session-start.sh", "timeout": 15 }
+    ],
+    "stop": [
+      { "command": ".cursor/hooks/harness-stop.sh", "timeout": 15, "loop_limit": 2 }
+    ],
+    "postToolUse": [
+      {
+        "command": ".cursor/hooks/harness-post-shell.sh",
+        "matcher": "Shell",
+        "timeout": 10
+      }
+    ]
+  }
+}
